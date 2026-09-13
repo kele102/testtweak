@@ -17,9 +17,11 @@ jobs:
         run: |
           bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
           echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+          # 新增：自动下载最新iOS SDK
+          $HOME/theos/bin/install-sdk latest
 
       - name: Build package (rootless for Dopamine)
-        run: make package FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+        run: make package FINALPACKAGE=1
       
       - name: Upload deb
         uses: actions/upload-artifact@v4
