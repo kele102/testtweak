@@ -3,12 +3,12 @@ on: push
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: true
 
       - name: Install dependencies
         run: |
@@ -17,12 +17,14 @@ jobs:
 
       - name: Setup Theos
         run: |
-          git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          git clone https://github.com/theos/theos.git ~/theos
           echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+          cd ~/theos
+          git submodule update --init --recursive
 
       - name: Build package
         run: make package
-
+      
       - name: Upload deb
         uses: actions/upload-artifact@v4
         with:
