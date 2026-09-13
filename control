@@ -1,0 +1,7 @@
+Package: com.test.testtweak
+Name: testtweak
+Version: 1.0
+Architecture: arm64 arm64e
+Maintainer: test
+Description: 测试弹窗tweak
+Depends: mobilesubstrate
